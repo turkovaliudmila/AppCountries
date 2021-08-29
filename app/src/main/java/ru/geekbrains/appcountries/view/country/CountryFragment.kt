@@ -14,7 +14,7 @@ import ru.geekbrains.appcountries.presenter.CountryPresenter
 class CountryFragment : MvpAppCompatFragment(), CountryView {
 
     private val countryInfo: Country? by lazy {
-        arguments?.getParcelable<Country>(BUNDLE_EXTRA)
+        arguments?.getParcelable(BUNDLE_EXTRA)
     }
 
     private var vb: ViewCountryBinding? = null
@@ -51,7 +51,7 @@ class CountryFragment : MvpAppCompatFragment(), CountryView {
     override fun setCountryInfo(countryInfo: Country) {
         vb?.name?.text = countryInfo.name
         vb?.capital?.text = countryInfo.capital
-        vb?.currency?.text = countryInfo.currency
+        countryInfo.currencies?.let { currencies -> vb?.currency?.text = currencies.first().name }
     }
 
 }

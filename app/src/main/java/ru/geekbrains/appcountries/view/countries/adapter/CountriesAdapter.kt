@@ -25,7 +25,7 @@ class CountriesAdapter(private val presenter: ICountriesListPresenter) :
         presenter.bindView(holder.apply { pos = position })
 
     inner class ViewHolder(private val vb: ItemCountryBinding) : RecyclerView.ViewHolder(vb.root),
-        CountryItemView {
+        ICountryItemView {
         override var pos = -1
 
         override fun setName(name: String) = with(vb) {

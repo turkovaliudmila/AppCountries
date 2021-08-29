@@ -4,12 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import io.reactivex.android.schedulers.AndroidSchedulers
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 import ru.geekbrains.appcountries.AppCountries.Navigation.router
 import ru.geekbrains.appcountries.databinding.ViewCountriesBinding
-import ru.geekbrains.appcountries.model.CountryRepositoryFactory
+import ru.geekbrains.appcountries.model.CountriesRepositoryFactory
 import ru.geekbrains.appcountries.presenter.CountriesPresenter
+import ru.geekbrains.appcountries.scheduler.SchedulersFactory
 import ru.geekbrains.appcountries.view.countries.adapter.CountriesAdapter
 
 class CountriesFragment : MvpAppCompatFragment(), CountriesView {
@@ -19,7 +21,7 @@ class CountriesFragment : MvpAppCompatFragment(), CountriesView {
     }
 
     private val presenter: CountriesPresenter by moxyPresenter {
-        CountriesPresenter(CountryRepositoryFactory.create(), router = router)
+        CountriesPresenter(CountriesRepositoryFactory.create(), router = router, AndroidSchedulers.mainThread())
     }
 
     var adapter: CountriesAdapter? = null

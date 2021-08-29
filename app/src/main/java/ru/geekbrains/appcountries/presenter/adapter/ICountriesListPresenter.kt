@@ -1,5 +1,5 @@
 package ru.geekbrains.appcountries.presenter.adapter
 
-import ru.geekbrains.appcountries.view.countries.adapter.CountryItemView
+import ru.geekbrains.appcountries.view.countries.adapter.ICountryItemView
 
-interface ICountriesListPresenter : IListPresenter<CountryItemView>
+interface ICountriesListPresenter : IListPresenter<ICountryItemView>

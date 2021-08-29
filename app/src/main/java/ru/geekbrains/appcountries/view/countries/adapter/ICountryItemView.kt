@@ -1,5 +1,5 @@
 package ru.geekbrains.appcountries.view.countries.adapter
 
-interface CountryItemView : IItemView {
+interface ICountryItemView : IItemView {
     fun setName(name: String)
 }
