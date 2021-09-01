@@ -5,13 +5,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 import ru.geekbrains.appcountries.databinding.ViewCountryBinding
 import ru.geekbrains.appcountries.model.Country
 import ru.geekbrains.appcountries.presenter.CountryPresenter
+import ru.geekbrains.appcountries.presenter.abs.AbsFragment
 
-class CountryFragment : MvpAppCompatFragment(), CountryView {
+class CountryFragment : AbsFragment(), CountryView {
 
     private val countryInfo: Country? by lazy {
         arguments?.getParcelable(BUNDLE_EXTRA)

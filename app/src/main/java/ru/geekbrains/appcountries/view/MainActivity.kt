@@ -2,12 +2,19 @@ package ru.geekbrains.appcountries.view
 
 import android.R
 import android.os.Bundle
+import com.github.terrakok.cicerone.NavigatorHolder
+import com.github.terrakok.cicerone.Router
 import com.github.terrakok.cicerone.androidx.AppNavigator
-import moxy.MvpAppCompatActivity
-import ru.geekbrains.appcountries.AppCountries.Navigation.navigatorHolder
-import ru.geekbrains.appcountries.AppCountries.Navigation.router
+import ru.geekbrains.appcountries.presenter.abs.AbsActivity
+import javax.inject.Inject
 
-class MainActivity : MvpAppCompatActivity() {
+class MainActivity : AbsActivity() {
+
+    @Inject
+    lateinit var navigatorHolder: NavigatorHolder
+
+    @Inject
+    lateinit var router: Router
 
     private val navigator = AppNavigator(this, R.id.content)
 

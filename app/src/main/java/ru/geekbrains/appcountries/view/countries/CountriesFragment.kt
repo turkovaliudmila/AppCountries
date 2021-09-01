@@ -4,24 +4,33 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import io.reactivex.android.schedulers.AndroidSchedulers
-import moxy.MvpAppCompatFragment
+import com.github.terrakok.cicerone.Router
 import moxy.ktx.moxyPresenter
-import ru.geekbrains.appcountries.AppCountries.Navigation.router
 import ru.geekbrains.appcountries.databinding.ViewCountriesBinding
-import ru.geekbrains.appcountries.model.CountriesRepositoryFactory
+import ru.geekbrains.appcountries.model.ICountriesRepository
 import ru.geekbrains.appcountries.presenter.CountriesPresenter
-import ru.geekbrains.appcountries.scheduler.SchedulersFactory
+import ru.geekbrains.appcountries.presenter.abs.AbsFragment
+import ru.geekbrains.appcountries.scheduler.ISchedulers
 import ru.geekbrains.appcountries.view.countries.adapter.CountriesAdapter
+import javax.inject.Inject
 
-class CountriesFragment : MvpAppCompatFragment(), CountriesView {
+class CountriesFragment : AbsFragment(), CountriesView {
     companion object {
         fun newInstance(): Fragment =
             CountriesFragment()
     }
 
+    @Inject
+    lateinit var router: Router
+
+    @Inject
+    lateinit var schedulers: ISchedulers
+
+    @Inject
+    lateinit var countriesRepository: ICountriesRepository
+
     private val presenter: CountriesPresenter by moxyPresenter {
-        CountriesPresenter(CountriesRepositoryFactory.create(), router = router, AndroidSchedulers.mainThread())
+        CountriesPresenter(countriesRepository, router = router, schedulers)
     }
 
     var adapter: CountriesAdapter? = null

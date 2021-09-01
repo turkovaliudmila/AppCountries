@@ -1,29 +1,24 @@
 package ru.geekbrains.appcountries
 
-import android.app.Application
-import android.content.Context
 import com.github.terrakok.cicerone.Cicerone
-import com.github.terrakok.cicerone.Router
+import dagger.android.AndroidInjector
+import dagger.android.DaggerApplication
+import io.reactivex.schedulers.Schedulers
+import ru.geekbrains.appcountries.model.di.DaggerApplicationComponent
+import ru.geekbrains.appcountries.scheduler.DefaultSchedulers
 
-class AppCountries : Application() {
+class AppCountries : DaggerApplication() {
 
-    object ContextHolder {
-        lateinit var context: Context
-    }
+    override fun applicationInjector(): AndroidInjector<out DaggerApplication> =
+        DaggerApplicationComponent
+            .builder()
+            .withContext(applicationContext)
+            .apply {
+                val cicerone = Cicerone.create()
+                withNavigatorHolder(cicerone.getNavigatorHolder())
+                withRouter(cicerone.router)
+                withSchedulers(DefaultSchedulers())
+            }
+            .build()
 
-    companion object Navigation {
-
-        private val cicerone : Cicerone<Router> by lazy {
-            Cicerone.create()
-        }
-
-        val navigatorHolder = cicerone.getNavigatorHolder()
-        val router = cicerone.router
-
-    }
-
-    override fun onCreate() {
-        super.onCreate()
-        ContextHolder.context = applicationContext
-    }
 }

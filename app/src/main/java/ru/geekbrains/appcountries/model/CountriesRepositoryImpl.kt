@@ -5,8 +5,9 @@ import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import ru.geekbrains.appcountries.model.api.ICountriesApi
 import ru.geekbrains.appcountries.model.cache.ICacheCountryDataSource
+import javax.inject.Inject
 
-data class CountriesRepositoryImpl(
+data class CountriesRepositoryImpl @Inject constructor(
     private val api: ICountriesApi,
     private val cache: ICacheCountryDataSource
 ) : ICountriesRepository {
